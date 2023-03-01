@@ -14,7 +14,7 @@ string username,usernamefile ;
     cout << "Please Enter Your Username : " ;
     getline (cin,username) ;
     cout << "Your Username is :" << username ; 
-    usernamefile ="C:\\Users\\boss\\Com prog project\\Com_prog_project\\Com_prog_project\\Usernameinfo\\"+username+".txt" ;
+    usernamefile ="C:\\Users\\boss\\Com_prog_project\\Usernameinfo\\"+username+".txt" ;
     cout <<usernamefile ;
     ofstream saveusername ;
     saveusername.open(usernamefile) ;
