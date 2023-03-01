@@ -68,10 +68,6 @@ media organization (n.)
 องค์กรสื่อ
 community journalism (n.)
 วารสารชุมชน/พลเมือง
-traditional media (n.)
-สื่อเก่า
-new media (n.)
-สื่อใหม่
 affordable technology (n.)
 เทคโนโลยีราคาย่อมเยา/ที่สามารถซื้อได้
 enable (v.)
