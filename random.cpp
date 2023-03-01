@@ -12,8 +12,8 @@ using namespace std;
 int main() {
     srand(time(0));
     ifstream vocab,mean;
-    vocab.open("C:\\Users\\boss\\Com prog project\\Com_prog_project\\Full vocab\\vocab.txt");
-    mean.open("C:\\Users\\boss\\Com prog project\\Com_prog_project\\Full vocab\\meaning.txt");
+    vocab.open("C:\\Users\\boss\\Com_prog_project\\Full vocab\\vocab.txt");
+    mean.open("C:\\Users\\boss\\Com_prog_project\\Full vocab\\meaning.txt");
     string textline,text;
     string wordlist[76],meaning[76];
     int i=0,a=0;
