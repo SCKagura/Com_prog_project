@@ -8,9 +8,9 @@ int main()
     ifstream vocab ;
     ofstream dest ;
     ofstream aaa;
-    aaa.open("C:\\Users\\boss\\Com prog project\\Com_prog_project\\Com_prog_project\\Full vocab\\vocab.txt");
-    vocab.open("C:\\Users\\boss\\Com prog project\\Com_prog_project\\Com_prog_project\\Full vocab\\vocabandmeaning.txt") ;
-    dest.open ("C:\\Users\\boss\\Com prog project\\Com_prog_project\\Com_prog_project\\Full vocab\\meaning.txt") ;
+    aaa.open  ("C:\\Users\\boss\\Com_prog_project\\Full vocab\\vocab1.txt");
+    vocab.open("C:\\Users\\boss\\Com_prog_project\\Full vocab\\vocabandmeaning.txt") ;
+    dest.open ("C:\\Users\\boss\\Com_prog_project\\Full vocab\\meaning2.txt") ;
     string textline ;
     int i = 1;
     while (getline(vocab,textline))
@@ -20,6 +20,7 @@ int main()
         i++;
         
     }
+    aaa.close();
     vocab.close() ;
     dest.close() ;
     return 0;

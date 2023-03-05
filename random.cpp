@@ -15,7 +15,7 @@ int main() {
     vocab.open("C:\\Users\\boss\\Com_prog_project\\Full vocab\\vocab.txt");
     mean.open("C:\\Users\\boss\\Com_prog_project\\Full vocab\\meaning.txt");
     string textline,text;
-    string wordlist[76],meaning[76];
+    string wordlist[100],meaning[100];
     int i=0,a=0;
     int size = sizeof(wordlist)/sizeof(wordlist[0]);
     while(getline(vocab,textline)){
