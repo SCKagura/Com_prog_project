@@ -1,5 +1,0 @@
-Wee
-Correct Answer =3
-Wrong Answer =7
-Result = FAIL
-

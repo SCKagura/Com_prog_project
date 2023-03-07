@@ -2,6 +2,7 @@
 #include <string>
 #include <ctime>
 #include <fstream>
+#include <cstdlib>
 using namespace std;
 
 int Q_NO = 1;
@@ -39,9 +40,12 @@ int main()
         saveusername.open(usernamefile) ;
         saveusername <<username << endl ;
         saveusername.close() ;
+        saveusername.open("C:\\Users\\boss\\Com_prog_project\\MaxscoreFile\\"+username+".txt", ios_base::out);
+        saveusername << "0" << endl ;
         cout << "Register SuccessFul" ;
+        saveusername.close() ;
     }
-    if (choice == 2 )
+    else if (choice == 2 )
     {
         cout << "Please Enter Your Username : " ;
         cin.ignore() ;
@@ -60,6 +64,10 @@ int main()
         }
  
         pullusername.close() ;
+    }else 
+    {
+        cout << "Wrong Input \n" ;
+        main() ;
     }
     }
     
@@ -450,9 +458,11 @@ void display_random_question()
             case 99:
                 question("ความหมายของ trumpeting (n.) คือ" , "เสียงแตร" , "เสียงร้องของช้าง" , "เสียงสัตว์ป่า" , "เสียงเครื่องดนตรี" , 'b');
                 break;   
-            }
-        }
-        }
+                
+            } 
+       }
+     }
+       
     result();
 }
 
@@ -477,17 +487,49 @@ void result ()
         cout << username <<" YOU NOOB !"<< endl;
         cout <<"Please try again"<<endl;
     }
+    
+
+
+    ifstream readMaxScoreFile ;
+        readMaxScoreFile.open("C:\\Users\\boss\\Com_prog_project\\MaxscoreFile\\"+username+".txt") ;
+        string textline ;
+        int current ,x ;
+        getline(readMaxScoreFile,textline) ;
+        current = stoi(textline) ;
+        if(current < CORRECT)
+        {
+            x = CORRECT ;
+
+        }else
+        {
+            x = current ;
+        }
+        cout << "KUY" << x ; 
+    readMaxScoreFile.close() ;
+
     ofstream result ;
         result.open(usernamefile,ios::app) ;
         result <<"Correct Answer =" <<  CORRECT <<endl ;
         result <<"Wrong Answer =" << WRONG << endl ;
         if(CORRECT>WRONG)
-        result << "Result = PASS" << endl << endl;
+        result << "Result = PASS" << endl;
     else if(WRONG>CORRECT)
-        result << "Result = FAIL" << endl << endl ;
+        result << "Result = FAIL" << endl  ;
     else
-        result << "Result = Tie" <<endl << endl;
-}
+        result << "Result = Tie" <<endl ;
+    
+    result << "Max Score = "  << x <<  endl << endl ;
+    result.close() ;
+
+
+    result.open("C:\\Users\\boss\\Com_prog_project\\MaxscoreFile\\"+username+".txt") ;
+    result << x ;
+    result.close() ;
+    }
+    
+
+
+
 
 void question (string question , string a ,string b ,string c ,string d , char correct_answer)
 {

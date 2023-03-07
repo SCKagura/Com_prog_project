@@ -1,7 +1,0 @@
-Folk
-Correct Answer =25
-Wrong Answer =75
-Result = FAIL
-Correct Answer =26
-Wrong Answer =74
-Result = FAIL
