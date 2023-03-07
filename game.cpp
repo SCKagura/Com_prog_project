@@ -503,8 +503,7 @@ void result ()
         }else
         {
             x = current ;
-        }
-        cout << "KUY" << x ; 
+        } 
     readMaxScoreFile.close() ;
 
     ofstream result ;
