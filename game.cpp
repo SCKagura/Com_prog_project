@@ -21,7 +21,7 @@ void result();
 int main()
 {
     {
-        int choice ;
+       string  choice ;
     cout << "||      ||  ||||||||||  ||          ||            ||||||           ||  ||\n" ;
     cout << "||      ||  ||          ||          ||          ||      ||       ||  ||  ||\n" ;
     cout << "||||||||||  ||||||||||  ||          ||          ||      ||       ||      ||\n" ;
@@ -29,10 +29,9 @@ int main()
     cout << "||      ||  ||||||||||  ||||||||||  ||||||||||    ||||||             || \n" ;
     cout << "Choose 1 to register\n" ;
     cout << "Choose 2 to login\n " ;
-    
     cin >> choice ;
     cin.ignore() ;
-    if (choice == 1 )
+    if (choice == "1" )
     {
         cout << "Please Enter Your Username : " ;
         cin >> username ; 
@@ -46,7 +45,7 @@ int main()
         cout << "Register SuccessFul" ;
         saveusername.close() ;
     }
-    else if (choice == 2 )
+    else if (choice == "2" )
     {
         cout << "Please Enter Your Username : " ;
         getline (cin,username) ; 
@@ -81,10 +80,12 @@ int main()
 
 void display()
 {
+    cout << "______________________________________________" ;
     system("cls");
     cout << "USERNAME : "<<username<<endl;
     cout << "Question NO:" << Q_NO <<"\t\tCorrect Answers:"<< CORRECT <<"\t\tWrong Answers:" << WRONG <<endl<<endl;
     display_random_question();
+
 }
 
 
@@ -469,6 +470,7 @@ void display_random_question()
 void result ()
 {
     system("cls");
+    cout << "______________________________________________\n" ;
     cout << "USERNAME : "<<username<<endl;
     cout << "Total Question = " <<Q_NO -1 << endl;
     cout << "Correct Answers = " << CORRECT << endl;
@@ -487,6 +489,7 @@ void result ()
         cout << username <<" YOU NOOB !"<< endl;
         cout <<"Please try again"<<endl;
     }
+    cout << "______________________________________________\n" ;
     
 
 
@@ -532,11 +535,13 @@ void result ()
 
 void question (string question , string a ,string b ,string c ,string d , char correct_answer)
 {
+    cout << "______________________________________________\n" ;
     cout << question << endl;
-    cout << "A.\t" << a << endl;
-    cout << "B.\t" << b << endl;
-    cout << "C.\t" << c << endl;
-    cout << "D.\t" << d << endl;
+    cout << "a.\t" << a << endl;
+    cout << "b.\t" << b << endl;
+    cout << "c.\t" << c << endl;
+    cout << "d.\t" << d << endl;
+    cout << "______________________________________________\n" ;
     char answer;
     cin >> answer;
     if(answer == correct_answer)
