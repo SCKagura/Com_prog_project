@@ -21,7 +21,7 @@ void result();
 int main()
 {
     {
-        string choice ;
+        int choice ;
     cout << "||      ||  ||||||||||  ||          ||            ||||||           ||  ||\n" ;
     cout << "||      ||  ||          ||          ||          ||      ||       ||  ||  ||\n" ;
     cout << "||||||||||  ||||||||||  ||          ||          ||      ||       ||      ||\n" ;
@@ -32,10 +32,10 @@ int main()
     
     cin >> choice ;
     cin.ignore() ;
-    if (choice == "1" )
+    if (choice == 1 )
     {
         cout << "Please Enter Your Username : " ;
-        getline (cin,username) ; 
+        cin >> username ; 
         usernamefile ="C:\\Users\\boss\\Com_prog_project\\Usernameinfo\\"+username+".txt" ;
         ofstream saveusername ;
         saveusername.open(usernamefile) ;
@@ -46,10 +46,9 @@ int main()
         cout << "Register SuccessFul" ;
         saveusername.close() ;
     }
-    else if (choice == "2" )
+    else if (choice == 2 )
     {
         cout << "Please Enter Your Username : " ;
-        cin.ignore() ;
         getline (cin,username) ; 
         usernamefile ="C:\\Users\\boss\\Com_prog_project\\Usernameinfo\\"+username+".txt" ;
         ifstream pullusername ;
