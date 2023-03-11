@@ -3,6 +3,8 @@
 #include <ctime>
 #include <fstream>
 #include <cstdlib>
+#include <iomanip>
+#include <windows.h>
 using namespace std;
 
 int Q_NO = 1;
@@ -10,7 +12,7 @@ int CORRECT = 0;
 int WRONG = 0;
 string name;
 string username,usernamefile ;
-
+HANDLE color =GetStdHandle(STD_OUTPUT_HANDLE) ;
 bool ask[100] ;
 
 void display_random_question();
@@ -18,17 +20,54 @@ void display();
 void question(string question, string a, string b, string c, string d, char correct_answer);
 void result();
 
+ostream& bold_on(ostream& os )
+{
+    return os <<"\e[1m" ;
+}
+ostream& bold_off(ostream& os )
+{
+    return os <<"\e[0m" ;
+}
+
 int main()
 {
     {
        string  choice ;
-    cout << "||      ||  ||||||||||  ||          ||            ||||||           ||  ||\n" ;
-    cout << "||      ||  ||          ||          ||          ||      ||       ||  ||  ||\n" ;
-    cout << "||||||||||  ||||||||||  ||          ||          ||      ||       ||      ||\n" ;
-    cout << "||      ||  ||          ||          ||          ||      ||         ||  ||\n" ;
-    cout << "||      ||  ||||||||||  ||||||||||  ||||||||||    ||||||             || \n" ;
-    cout << "Choose 1 to register\n" ;
-    cout << "Choose 2 to login\n " ;
+    //cout <<bold_on <<"BOLDDDDDDDDD" <<bold_off  << "DABUIDAB " ;
+
+    cout << '\n' ;
+    cout << '\n' ;
+    SetConsoleTextAttribute(color,5) ;
+    cout << "────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────" << endl ;
+    SetConsoleTextAttribute(color,15) ;
+    cout << "┊ ┊ ┊ ┊ ┊                                                                                                      ┊ ┊ ┊ ┊ ┊\n" ;
+    cout << "┊ ┊ ✫ ˚♡ ⋆｡❀           ||      ||  ||||||||||  ||          ||            ||||||           ||  ||             ❀｡⋆ ♡˚✫ ┊ ┊ \n" ;
+    cout << "┊ ☪︎⋆                   ||      ||  ||          ||          ||          ||      ||       ||  ||  ||                  ☪︎⋆ ┊ \n";
+    cout << "⊹                      ||||||||||  ||||||||||  ||          ||          ||      ||       ||      ||                     ⊹\n" ;
+    cout << "┊ . ˚                  ||      ||  ||          ||          ||          ||      ||         ||  ||                    ˚. ┊ \n" ;
+    cout << "✧                      ||      ||  ||||||||||  ||||||||||  ||||||||||    ||||||             ||                         ✧\n" ;
+    //cout << "                       " <<"||      ||  ||||||||||  ||          ||            ||||||           ||  ||\n" ;
+    //cout << "                       " <<"||      ||  ||          ||          ||          ||      ||       ||  ||  ||\n" ;
+    //cout << "                       " <<"||||||||||  ||||||||||  ||          ||          ||      ||       ||      ||\n" ;
+    //cout << "                       " <<"||      ||  ||          ||          ||          ||      ||         ||  ||\n" ;
+    //cout << "                       " <<"||      ||  ||||||||||  ||||||||||  ||||||||||    ||||||             || \n" ;
+    cout << '\n' ;
+    SetConsoleTextAttribute(color,5) ;
+    cout << "────────────────────────────────────────────────── ❝ ";
+    SetConsoleTextAttribute(color,15) ;
+    cout << bold_on << " Are you Ready ?  " << bold_off ;
+    SetConsoleTextAttribute(color,5) ;
+    cout << "❞ ─────────────────────────────────────────────────" << endl ;
+    cout << "Press Enter 3 times to next : " ;
+    for(int i=0 ; i<3 ; i++) cin.ignore() ; 
+    cout << "«───────────────────────────────────────────────────── « ⋅ʚ♡ɞ⋅ » ─────────────────────────────────────────────────────»" << endl ;
+    cout << '\n' ;
+    cout << "                                                  "<<"Choose 1 to register\n" ;
+    cout << "                                                  "<<"Choose 2 to login\n " ;
+    cout << '\n' ;
+    cout << "«───────────────────────────────────────────────────── « ⋅ʚ♡ɞ⋅ » ─────────────────────────────────────────────────────»" << endl ;
+
+    cout << "Umm... I choose " ;
     cin >> choice ;
     cin.ignore() ;
     if (choice == "1" )
@@ -58,14 +97,22 @@ int main()
         cout <<"Login Successful !!\n " ;       
         }else
         {
-            cout <<"Failed to Login\n" ;
+            cout << '\n' ;
+            cout <<"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n" ; 
+            cout <<"!!                                                      Failed to Login                                              !!\n" ;
+            cout <<"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n" ;
+            cout << '\n' ;
                main() ;
         }
  
         pullusername.close() ;
     }else 
     {
-        cout << "Wrong Input \n" ;
+        cout << "\n" ;
+        cout <<"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n" ; 
+        cout <<"!!                                                    Wrong Input                                                    !!\n" ;
+        cout <<"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n" ;
+        cout << '\n' ;
         main() ;
     }
     }
@@ -80,7 +127,8 @@ int main()
 
 void display()
 {
-    cout << "______________________________________________" ;
+    //cout << "______________________________________________" ;
+    cout << "«───────────────────────────────────────────────────── « ⋅ʚ♡ɞ⋅ » ─────────────────────────────────────────────────────»" << endl ;
     system("cls");
     cout << "USERNAME : "<<username<<endl;
     cout << "Question NO:" << Q_NO <<"\t\tCorrect Answers:"<< CORRECT <<"\t\tWrong Answers:" << WRONG <<endl<<endl;
@@ -535,13 +583,17 @@ void result ()
 
 void question (string question , string a ,string b ,string c ,string d , char correct_answer)
 {
-    cout << "______________________________________________\n" ;
+    //cout << "______________________________________________\n" ;
+    cout << "«───────────────────────────────────────────────────── « ⋅ʚ♡ɞ⋅ » ─────────────────────────────────────────────────────»" << endl ;
+    cout << '\n' ;
     cout << question << endl;
     cout << "a.\t" << a << endl;
     cout << "b.\t" << b << endl;
     cout << "c.\t" << c << endl;
     cout << "d.\t" << d << endl;
-    cout << "______________________________________________\n" ;
+    cout << '\n' ;
+    cout << "«───────────────────────────────────────────────────── « ⋅ʚ♡ɞ⋅ » ─────────────────────────────────────────────────────»" << endl ;
+    //cout << "______________________________________________\n" ;
     char answer;
     cin >> answer;
     if(answer == correct_answer)
