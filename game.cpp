@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <iomanip>
 #include <windows.h>
+#include <algorithm>
 using namespace std;
 
 int Q_NO = 1;
@@ -14,13 +15,21 @@ string name;
 string username,usernamefile ;
 HANDLE color =GetStdHandle(STD_OUTPUT_HANDLE) ;
 bool ask[100] ;
+int MAXSCORE ; //ทำ max sscore
+int scoreboard[] = {} ; //ทำ scoreboard
 
-void display_random_question();
-void display();
-void question(string question, string a, string b, string c, string d, char correct_answer);
-void result();
 
-ostream& bold_on(ostream& os )
+
+
+void display_random_question(); //ฟังก์ชันสร้างคำถาม 100 ข้อ
+void display(); //UI
+void question(string question, string a, string b, string c, string d, char correct_answer); ///ฟังก์ชันสร้างคำถาม https://www.youtube.com/watch?v=eZ3oKfjnsHM
+void Gameresult(); //แสดงตอนจบ
+void Resultfile() ; //ไฟล์ลงในตอนจบ
+void Scoreboard() ; //scoreboard
+
+
+ostream& bold_on(ostream& os ) //ทำตัวอักษรหนา https://stackoverflow.com/questions/29997096/bold-output-in-c
 {
     return os <<"\e[1m" ;
 }
@@ -31,9 +40,8 @@ ostream& bold_off(ostream& os )
 
 int main()
 {
-    {
        string  choice ;
-    //cout <<bold_on <<"BOLDDDDDDDDD" <<bold_off  << "DABUIDAB " ;
+      
 
     cout << '\n' ;
     cout << '\n' ;
@@ -59,11 +67,13 @@ int main()
     SetConsoleTextAttribute(color,5) ;
     cout << "❞ ─────────────────────────────────────────────────" << endl ;
     cout << "Press Enter 3 times to next : " ;
-    for(int i=0 ; i<3 ; i++) cin.ignore() ; 
+    for(int i=0 ; i<3 ; i++) cin.get() ; 
+    
     cout << "«───────────────────────────────────────────────────── « ⋅ʚ♡ɞ⋅ » ─────────────────────────────────────────────────────»" << endl ;
     cout << '\n' ;
     cout << "                                                  "<<"Choose 1 to register\n" ;
     cout << "                                                  "<<"Choose 2 to login\n " ;
+    cout << "                                                  "<<"Choose 3 to Watch Scoreboard\n" ;
     cout << '\n' ;
     cout << "«───────────────────────────────────────────────────── « ⋅ʚ♡ɞ⋅ » ─────────────────────────────────────────────────────»" << endl ;
 
@@ -94,40 +104,42 @@ int main()
         string textline ;
         if (getline(pullusername,textline))
         {
-        cout <<"Login Successful !!\n " ;       
-        }else
+        cout <<"Login Successful !!\n " ;  
+        pullusername.close() ;   
+        }else 
         {
             cout << '\n' ;
             cout <<"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n" ; 
             cout <<"!!                                                      Failed to Login                                              !!\n" ;
             cout <<"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n" ;
             cout << '\n' ;
-               main() ;
+            cout << "Press Enter 3 times to next : " ;
+            for(int i=0 ; i<3 ; i++) cin.get() ;
+            main() ;
         }
- 
-        pullusername.close() ;
-    }else 
+    }else if (choice == "3" )
+        
+        {
+            Scoreboard() ;
+        }
+    else 
     {
         cout << "\n" ;
         cout <<"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n" ; 
         cout <<"!!                                                    Wrong Input                                                    !!\n" ;
         cout <<"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n" ;
         cout << '\n' ;
+        cout << "Press Enter 3 times to next : " ;
+        for(int i=0 ; i<3 ; i++) cin.get() ;
         main() ;
     }
-    }
-    
     for(int i = 0 ; i< 100 ; i++)  ask[i] = "true" ;
-
-    display();
+    display() ;
     return 0;
-  
-  
 }
 
 void display()
 {
-    //cout << "______________________________________________" ;
     cout << "«───────────────────────────────────────────────────── « ⋅ʚ♡ɞ⋅ » ─────────────────────────────────────────────────────»" << endl ;
     system("cls");
     cout << "USERNAME : "<<username<<endl;
@@ -136,9 +148,15 @@ void display()
 
 }
 
+  
+    
+
+  
+
 
 void display_random_question()
 {
+    
     srand(time(0));
     bool is_question_remaining = false;
     for(int i=0; i<100; i++)
@@ -512,10 +530,10 @@ void display_random_question()
        }
      }
        
-    result();
+   Resultfile() ;
 }
 
-void result ()
+void Gameresult ()
 {
     system("cls");
     cout << "______________________________________________\n" ;
@@ -523,6 +541,7 @@ void result ()
     cout << "Total Question = " <<Q_NO -1 << endl;
     cout << "Correct Answers = " << CORRECT << endl;
     cout << "Wrong Answers = " << WRONG << endl;
+    cout << "Max Score = "  << MAXSCORE << endl ;
     if(CORRECT>WRONG)
         cout << "Result = PASS" << endl;
     else if(WRONG>CORRECT)
@@ -538,10 +557,11 @@ void result ()
         cout <<"Please try again"<<endl;
     }
     cout << "______________________________________________\n" ;
-    
+    }
 
-
-    ifstream readMaxScoreFile ;
+void Resultfile()
+{
+     ifstream readMaxScoreFile ;
         readMaxScoreFile.open("C:\\Users\\boss\\Com_prog_project\\MaxscoreFile\\"+username+".txt") ;
         string textline ;
         int current ,x ;
@@ -550,10 +570,11 @@ void result ()
         if(current < CORRECT)
         {
             x = CORRECT ;
-
+            MAXSCORE  = x ;       //เอาสกอสูงสุด 
         }else
         {
             x = current ;
+            MAXSCORE = x ;
         } 
     readMaxScoreFile.close() ;
 
@@ -564,7 +585,7 @@ void result ()
         if(CORRECT>WRONG)
         result << "Result = PASS" << endl;
     else if(WRONG>CORRECT)
-        result << "Result = FAIL" << endl  ;
+        result << "Result = FAIL" << endl  ;     //แสดง progress ตัวเอง ลงไฟล์
     else
         result << "Result = Tie" <<endl ;
     
@@ -572,12 +593,15 @@ void result ()
     result.close() ;
 
 
-    result.open("C:\\Users\\boss\\Com_prog_project\\MaxscoreFile\\"+username+".txt") ;
-    result << x ;
+    result.open("C:\\Users\\boss\\Com_prog_project\\MaxscoreFile\\"+username+".txt") ; 
+    result << x ;    //show max score to max score file 
     result.close() ;
-    }
-    
+    result.open("C:\\Users\\boss\\Com_prog_project\\Progress_all_people\\PROGRESS.txt",ios::app) ;
+    result << CORRECT <<" " << username << endl  ;
+    result.close() ;
+    Gameresult() ;
 
+}
 
 
 
@@ -604,5 +628,49 @@ void question (string question , string a ,string b ,string c ,string d , char c
     display();
 }
 
+void Scoreboard()   //แสดง scoreboard
+{
+   {
+    ifstream Scoreboardfile ;
+    Scoreboardfile.open("C:\\Users\\boss\\Com_prog_project\\Progress_all_people\\PROGRESS.txt") ;
+    string copytextline ; 
+    int q= 0 ;
+    while (getline(Scoreboardfile,copytextline))
+    {
+        scoreboard[q] =stoi(copytextline) ;      //แปลงเลขเข้าอาเรย์
+        q++ ;
 
+    }
+      Scoreboardfile.close() ;
+    sort(&scoreboard[0],&scoreboard[q], greater<int>());  //เรียงเลขจากมากไปน้อย
+ //   for (int i = 0 ; i < 5 ;i++) cout << x[i] << endl;
+   
+  
+    Scoreboardfile.open("C:\\Users\\boss\\Com_prog_project\\Progress_all_people\\PROGRESS.txt") ;
+    int r = 0,u ;
+    for (int i = 0 ;i<5 ; i++)
+    {
+    Scoreboardfile.open("C:\\Users\\boss\\Com_prog_project\\Progress_all_people\\PROGRESS.txt") ;
+        while (getline(Scoreboardfile,copytextline))
+        {
+            if (r < 5)
+            {
+            u = stoi(copytextline) ;
+         //   cout << u <<endl ;
+             if (u == scoreboard[r])
+             {
+                cout << copytextline << endl  ;
+                 r++ ;
+             }
+            }
+           
+        } //ทำเสร็จสักที วู้ว
+    Scoreboardfile.close() ;
+    }
+    cout <<"Press Enter 3 times to go home" ;
+    for(int i=0 ; i<3 ; i++) cin.get() ;
+    main() ;
+}
+ 
+}
 
